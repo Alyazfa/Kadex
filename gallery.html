@@ -75,6 +75,7 @@
 							<li><a class="nav-link" href="about.html">Tentang</a></li>
 							<li><a href="gallery.html">Galeri</a></li>
 							<li><a class="nav-link" href="contact.html">Tentang Kami</a></li>
+							<li><a class="nav-link" id="authButton" href="login.html">Daftar</a></li>
 						</ul>
 					</nav>
 				</div>
@@ -340,6 +341,34 @@
 	<script src="assets/js/wow.min.js"></script>
 	<!-- scripts js -->
 	<script src="assets/js/scripts.js"></script>
+	<script>
+    window.onload = function() {
+        const authButton = document.getElementById('authButton');
+        const isLoggedIn = localStorage.getItem('isLoggedIn');
+
+        // Jika user SUDAH login
+        if (isLoggedIn === 'true') {
+            // 1. Ubah teks tombol menjadi LOGOUT
+            authButton.innerHTML = "LOGOUT";
+            // 2. Kosongkan href agar tidak langsung lompat ke login.html sebelum proses logout selesai
+            authButton.setAttribute('href', '#'); 
+
+            // 3. Berikan fungsi klik untuk Logout
+            authButton.addEventListener('click', function(e) {
+                e.preventDefault(); // Tahan aksi default
+
+                // Ubah status login menjadi false
+                localStorage.setItem('isLoggedIn', 'false');
+                
+                // Hapus data user aktif (opsional, agar sistem tahu tidak ada yang login)
+                localStorage.removeItem('currentUser'); 
+
+                // Alihkan kembali ke halaman login.html secara aman di GitHub Pages
+                window.location.href = "./login.html";
+            });
+        }
+    };
+</script>
 </body>
 
 </html>
