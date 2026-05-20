@@ -739,36 +739,38 @@
 	<script src="assets/js/wow.min.js"></script>
 	<!-- scripts js -->
     <script src="assets/js/scripts.js"></script>
+   <!-- ... Kode HTML website Anda ... -->
+
+    <!-- Panggil script bawaan template Anda terlebih dahulu -->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/popper.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/main.js"></script>
+
+    <!-- Script Logika Logout Letakkan di Sini -->
     <script>
-    window.onload = function() {
-        const authButton = document.getElementById('authButton');
-        const isLoggedIn = localStorage.getItem('isLoggedIn');
+        window.onload = function() {
+            const authButton = document.getElementById('authButton');
+            const isLoggedIn = localStorage.getItem('isLoggedIn');
 
-        // Jika user SUDAH login
-        if (isLoggedIn === 'true') {
-            // 1. Ubah teks tombol menjadi LOGOUT
-            authButton.innerHTML = "LOGOUT";
-            // 2. Kosongkan href agar tidak langsung lompat ke login.html sebelum proses logout selesai
-            authButton.setAttribute('href', '#'); 
+            // Cek apakah data terbaca di console browser
+            console.log("Status Login saat ini:", isLoggedIn);
 
-            // 3. Berikan fungsi klik untuk Logout
-            authButton.addEventListener('click', function(e) {
-                e.preventDefault(); // Tahan aksi default
+            if (isLoggedIn === 'true' && authButton) {
+                authButton.innerHTML = "LOGOUT";
+                authButton.setAttribute('href', '#'); 
 
-                // Ubah status login menjadi false
-                localStorage.setItem('isLoggedIn', 'false');
-                
-                // Hapus data user aktif (opsional, agar sistem tahu tidak ada yang login)
-                localStorage.removeItem('currentUser'); 
-
-                // Alihkan kembali ke halaman login.html secara aman di GitHub Pages
-                localStorage.removeItem('savedUser');
-localStorage.removeItem('savedPass');
-				window.location.href = "./login.html";
-            });
-        }
-    };
-</script>
+                authButton.addEventListener('click', function(e) {
+                    e.preventDefault(); 
+                    localStorage.setItem('isLoggedIn', 'false');
+                    localStorage.removeItem('currentUser'); 
+                    window.location.href = "./login.html";
+                });
+            }
+        };
+    </script>
+</body>
+</html>
 			</body>
 			
 
