@@ -60,34 +60,41 @@
     <script src="js/bootstrap.min.js"></script>
     <script src="js/main.js"></script>
 
-    <script>
-        // Logika Login & Remember Me
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
-            const user = document.getElementById('username').value;
-            const pass = document.getElementById('password-field').value;
-            const remember = document.getElementById('rememberMe').checked;
+   <script>
+    // Logika Login & Remember Me
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+        // 1. Hentikan aksi submit bawaan HTML agar proses localStorage tidak terputus
+        e.preventDefault(); 
 
-            // Simulasi status login
-            localStorage.setItem('isLoggedIn', 'true');
-            localStorage.setItem('currentUser', user);
+        const user = document.getElementById('username').value;
+        const pass = document.getElementById('password-field').value;
+        const remember = document.getElementById('rememberMe').checked;
 
-            // Jika "Remember Me" dicentang, simpan kredensial (Hanya untuk demo, tidak aman untuk produksi)
-            if (remember) {
-                localStorage.setItem('savedUser', user);
-                localStorage.setItem('savedPass', pass);
-            } else {
-                localStorage.removeItem('savedUser');
-                localStorage.removeItem('savedPass');
-            }
-        });
+        // Simulasi status login
+        localStorage.setItem('isLoggedIn', 'true');
+        localStorage.setItem('currentUser', user);
 
-        // Autofill jika data tersimpan
-        window.onload = function() {
-            if (localStorage.getItem('savedUser')) {
-                document.getElementById('username').value = localStorage.getItem('savedUser');
-                document.getElementById('password-field').value = localStorage.getItem('savedPass');
-            }
-        };
-    </script>
+        // Jika "Remember Me" dicentang, simpan kredensial
+        if (remember) {
+            localStorage.setItem('savedUser', user);
+            localStorage.setItem('savedPass', pass);
+        } else {
+            localStorage.removeItem('savedUser');
+            localStorage.removeItem('savedPass');
+        }
+
+        // 2. Alihkan halaman ke index.html secara manual setelah data tersimpan
+        window.location.href = "index.html"; 
+    });
+
+    // Autofill jika data tersimpan saat halaman dimuat
+    window.onload = function() {
+        if (localStorage.getItem('savedUser')) {
+            document.getElementById('username').value = localStorage.getItem('savedUser');
+            document.getElementById('password-field').value = localStorage.getItem('savedPass');
+            document.getElementById('rememberMe').checked = true; // Otomatis centang kembali
+        }
+    };
+</script>
 </body>
 </html>
