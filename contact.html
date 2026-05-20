@@ -69,41 +69,13 @@
 				<div class="col-12 col-md-10 d-none d-xl-block">
 					<nav class="site-navigation position-relative text-right" role="navigation">
 						<ul class="site-menu main-menu js-clone-nav mr-auto d-none d-lg-block">
-							<li class="has-children">
-								<a href="index.html" class="nav-link">Home</a>
-								<ul class="dropdown">
-									<li><a href="index_map.html" class="nav-link">Home Map</a></li>
-									<li><a href="index_parallax.html" class="nav-link">Home Parallax</a></li>
-									<li><a href="index_slideshow.html" class="nav-link">Home Slider</a></li>
-									<li><a href="index_video.html" class="nav-link">Home video</a></li>
-								</ul>
+							<li class="nav-link">
+								<a href="index.html" class="nav-link">Beranda</a>
 							</li>
-							<li><a class="nav-link" href="about.html">about</a></li>
-							<li class="has-children">
-								<a href="property.html" class="nav-link">Property</a>
-								<ul class="dropdown">
-									<li><a href="property-details.html" class="nav-link">Property Details</a></li>
-								</ul>
-							</li>
-							<li><a href="gallery.html">Gallery</a></li>
-							<li class="has-children">
-								<a href="#" class="nav-link">Pages</a>
-								<ul class="dropdown">
-									<li><a href="agent_profile.html" class="nav-link">agent profile</a></li>
-									<li><a href="login.html" class="nav-link">login page</a></li>
-									<li><a href="register.html" class="nav-link">register page</a></li>
-									<li><a href="faq.html" class="nav-link">Faqs</a></li>
-									<li><a href="404.html" class="nav-link">404 page</a></li>
-								</ul>
-							</li>
-							<li class="has-children">
-								<a href="blog.html" class="nav-link">Blog</a>
-								<ul class="dropdown">
-									<li><a href="blog.html" class="nav-link">Blog Post</a></li>
-									<li><a href="blog-post.html" class="nav-link">Blog Single</a></li>
-								</ul>
-							</li>
-							<li><a class="nav-link" href="contact.html">Contact</a></li>
+							<li><a class="nav-link" href="about.html">Tentang</a></li>
+							<li><a href="gallery.html">Galeri</a></li>
+							<li><a class="nav-link" href="contact.html">Tentang Kami</a></li>
+							<li><a class="nav-link" id="authButton" href="login.html">Daftar</a></li>
 						</ul>
 					</nav>
 				</div>
@@ -313,6 +285,34 @@
 	<script src="assets/js/wow.min.js"></script>
 	<!-- scripts js -->
 	<script src="assets/js/scripts.js"></script>
+	<script>
+    window.onload = function() {
+        const authButton = document.getElementById('authButton');
+        const isLoggedIn = localStorage.getItem('isLoggedIn');
+
+        // Jika user SUDAH login
+        if (isLoggedIn === 'true') {
+            // 1. Ubah teks tombol menjadi LOGOUT
+            authButton.innerHTML = "LOGOUT";
+            // 2. Kosongkan href agar tidak langsung lompat ke login.html sebelum proses logout selesai
+            authButton.setAttribute('href', '#'); 
+
+            // 3. Berikan fungsi klik untuk Logout
+            authButton.addEventListener('click', function(e) {
+                e.preventDefault(); // Tahan aksi default
+
+                // Ubah status login menjadi false
+                localStorage.setItem('isLoggedIn', 'false');
+                
+                // Hapus data user aktif (opsional, agar sistem tahu tidak ada yang login)
+                localStorage.removeItem('currentUser'); 
+
+                // Alihkan kembali ke halaman login.html secara aman di GitHub Pages
+                window.location.href = "./login.html";
+            });
+        }
+    };
+</script>
 </body>
 
 </html>
