@@ -75,7 +75,7 @@
 							<li><a class="nav-link" href="about.html">Tentang</a></li>
 							<li><a href="gallery.html">Galeri</a></li>
 							<li><a class="nav-link" href="contact.html">Tentang Kami</a></li>
-							<li><a class="nav-link" id="authButton" href="login.html">Daftar</a></li>
+							<li id="authItem"><a class="nav-link" id="authButton" href="login.html">LOGIN</a></li>
 						</ul>
 					</nav>
 				</div>
@@ -122,7 +122,6 @@
 							<img src="assets/img/portfolio/1.jpg" class="img-fluid" alt="" />
 							<figcaption>
 								<a class="prettyPhoto image_zoom" href="assets/img/portfolio/1.jpg"></a>
-								<p><a href="#" data-toggle="modal" data-target="#projectModal">Your Dream House</a></p>
 							</figcaption>
 						</figure>
 					</div>
@@ -133,29 +132,7 @@
 							<img src="assets/img/portfolio/2.jpg" class="img-fluid" alt="" />
 							<figcaption>
 								<a class="prettyPhoto image_zoom" href="assets/img/portfolio/2.jpg"></a>
-								<p><a href="#" data-toggle="modal" data-target="#projectModal">Your Dream House</a></p>
-							</figcaption>
-						</figure>
-					</div>
-				</div><!--- END COL -->
-				<div class="col-lg-4 col-sm-4 col-xs-12 mix bathroom">
-					<div class="grid">
-						<figure class="effect-apollo">
-							<img src="assets/img/portfolio/3.jpg" class="img-fluid" alt="" />
-							<figcaption>
-								<a class="prettyPhoto image_zoom" href="assets/img/portfolio/3.jpg"></a>
-								<p><a href="#" data-toggle="modal" data-target="#projectModal">Your Dream House</a></p>
-							</figcaption>
-						</figure>
-					</div>
-				</div><!--- END COL -->
-				<div class="col-lg-4 col-sm-4 col-xs-12 mix garage kitchen">
-					<div class="grid">
-						<figure class="effect-apollo">
-							<img src="assets/img/portfolio/4.jpg" class="img-fluid" alt="" />
-							<figcaption>
-								<a class="prettyPhoto image_zoom" href="assets/img/portfolio/4.jpg"></a>
-								<p><a href="#" data-toggle="modal" data-target="#projectModal">Your Dream House</a></p>
+								<p><a href="#" data-toggle="modal" data-target="#projectModal">Bersama Musashi kembarannya</a></p>
 							</figcaption>
 						</figure>
 					</div>
@@ -166,7 +143,7 @@
 							<img src="assets/img/portfolio/5.jpg" class="img-fluid" alt="" />
 							<figcaption>
 								<a class="prettyPhoto image_zoom" href="assets/img/portfolio/5.jpg"></a>
-								<p><a href="#" data-toggle="modal" data-target="#projectModal">Your Dream House</a></p>
+								<p><a href="#" data-toggle="modal" data-target="#projectModal">Ilustrasi</a></p>
 							</figcaption>
 						</figure>
 					</div>
@@ -177,18 +154,7 @@
 							<img src="assets/img/portfolio/6.jpg" class="img-fluid" alt="" />
 							<figcaption>
 								<a class="prettyPhoto image_zoom" href="assets/img/portfolio/6.jpg"></a>
-								<p><a href="#" data-toggle="modal" data-target="#projectModal">Your Dream House</a></p>
-							</figcaption>
-						</figure>
-					</div>
-				</div><!--- END COL -->
-				<div class="col-lg-4 col-sm-4 col-xs-12 mix basement garage">
-					<div class="grid">
-						<figure class="effect-apollo">
-							<img src="assets/img/portfolio/7.jpg" class="img-fluid" alt="" />
-							<figcaption>
-								<a class="prettyPhoto image_zoom" href="assets/img/portfolio/7.jpg"></a>
-								<p><a href="#" data-toggle="modal" data-target="#projectModal">Your Dream House</a></p>
+								<p><a href="#" data-toggle="modal" data-target="#projectModal">Menembakkan meriamnya</a></p>
 							</figcaption>
 						</figure>
 					</div>
@@ -199,7 +165,7 @@
 							<img src="assets/img/portfolio/8.jpg" class="img-fluid" alt="" />
 							<figcaption>
 								<a class="prettyPhoto image_zoom" href="assets/img/portfolio/8.jpg"></a>
-								<p><a href="#" data-toggle="modal" data-target="#projectModal">Your Dream House</a></p>
+								<p><a href="#" data-toggle="modal" data-target="#projectModal">Siap Berlayar</a></p>
 							</figcaption>
 						</figure>
 					</div>
@@ -341,28 +307,27 @@
 	<script>
     window.onload = function() {
         const authButton = document.getElementById('authButton');
-        const isLoggedIn = localStorage.getItem('isLoggedIn');
+        // LKPD menggunakan pengecekan data user di localStorage
+        const user = localStorage.getItem('user'); 
 
-        // Jika user SUDAH login
-        if (isLoggedIn === 'true') {
-            // 1. Ubah teks tombol menjadi LOGOUT
+        if (user && authButton) {
+            // Jika data user ditemukan (sudah login)
             authButton.innerHTML = "LOGOUT";
-            // 2. Kosongkan href agar tidak langsung lompat ke login.html sebelum proses logout selesai
+            authButton.classList.add('logout-style'); // Opsional: tambahkan class untuk warna berbeda
             authButton.setAttribute('href', '#'); 
 
-            // 3. Berikan fungsi klik untuk Logout
-            authButton.addEventListener('click', function(e) {
-                e.preventDefault(); // Tahan aksi default
-
-                // Ubah status login menjadi false
-                localStorage.setItem('isLoggedIn', 'false');
-                
-                // Hapus data user aktif (opsional, agar sistem tahu tidak ada yang login)
-                localStorage.removeItem('currentUser'); 
-
-                // Alihkan kembali ke halaman login.html secara aman di GitHub Pages
-                window.location.href = "./login.html";
-            });
+            authButton.onclick = function(e) {
+                e.preventDefault();
+                if (confirm("Apakah Anda yakin ingin logout?")) {
+                    localStorage.removeItem('user'); // Hapus data user
+                    localStorage.setItem('isLoggedIn', 'false');
+                    window.location.reload(); // Segarkan halaman untuk kembali ke status Login
+                }
+            };
+        } else if (authButton) {
+            // Jika belum login
+            authButton.innerHTML = "LOGIN";
+            authButton.setAttribute('href', 'login/index.html');
         }
     };
 </script>
