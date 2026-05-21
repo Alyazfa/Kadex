@@ -76,7 +76,9 @@
 							
 							<li><a href="gallery.html">Galeri</a></li>
 							<li><a class="nav-link" href="contact.html">Tentang Kami</a></li>
-						    <li><a class="nav-link" id="authButton" href="login.html">Daftar</a></li>
+						    <li id="authItem">
+    <a class="nav-link" id="authButton" href="login.html">LOGIN</a>
+</li>
 						</ul>
 					</nav>
 				</div>
@@ -748,27 +750,33 @@
     <script src="js/main.js"></script>
 
     <!-- Script Logika Logout Letakkan di Sini -->
-    <script>
-        window.onload = function() {
-            const authButton = document.getElementById('authButton');
-            const isLoggedIn = localStorage.getItem('isLoggedIn');
+   <script>
+    window.onload = function() {
+        const authButton = document.getElementById('authButton');
+        // LKPD menggunakan pengecekan data user di localStorage
+        const user = localStorage.getItem('user'); 
 
-            // Cek apakah data terbaca di console browser
-            console.log("Status Login saat ini:", isLoggedIn);
+        if (user && authButton) {
+            // Jika data user ditemukan (sudah login)
+            authButton.innerHTML = "LOGOUT";
+            authButton.classList.add('logout-style'); // Opsional: tambahkan class untuk warna berbeda
+            authButton.setAttribute('href', '#'); 
 
-            if (isLoggedIn === 'true' && authButton) {
-                authButton.innerHTML = "LOGOUT";
-                authButton.setAttribute('href', '#'); 
-
-                authButton.addEventListener('click', function(e) {
-                    e.preventDefault(); 
+            authButton.onclick = function(e) {
+                e.preventDefault();
+                if (confirm("Apakah Anda yakin ingin logout?")) {
+                    localStorage.removeItem('user'); // Hapus data user
                     localStorage.setItem('isLoggedIn', 'false');
-                    localStorage.removeItem('currentUser'); 
-                    window.location.href = "./login.html";
-                });
-            }
-        };
-    </script>
+                    window.location.reload(); // Segarkan halaman untuk kembali ke status Login
+                }
+            };
+        } else if (authButton) {
+            // Jika belum login
+            authButton.innerHTML = "LOGIN";
+            authButton.setAttribute('href', 'login/index.html');
+        }
+    };
+</script>
 </body>
 </html>
 			</body>
