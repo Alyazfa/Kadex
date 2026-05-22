@@ -750,30 +750,32 @@
     <script src="assets/js/scripts.js"></script>
 
     <!-- Script Logika Logout Letakkan di Sini -->
-   <script>
+  <script>
     window.onload = function() {
         const authButton = document.getElementById('authButton');
-        // LKPD menggunakan pengecekan data user di localStorage
-        const user = localStorage.getItem('user'); 
+        
+        // SESUAIKAN: Ambil 'currentuser' sesuai data yang Anda temukan
+        const user = localStorage.getItem('currentuser'); 
+        const isLoggedIn = localStorage.getItem('isLoggedIn');
 
-        if (user && authButton) {
-            // Jika data user ditemukan (sudah login)
+        if (isLoggedIn === 'true' && user && authButton) {
+            // Ubah tampilan menjadi Logout
             authButton.innerHTML = "LOGOUT";
-            authButton.classList.add('logout-style'); // Opsional: tambahkan class untuk warna berbeda
             authButton.setAttribute('href', '#'); 
 
             authButton.onclick = function(e) {
                 e.preventDefault();
                 if (confirm("Apakah Anda yakin ingin logout?")) {
-                    localStorage.removeItem('user'); // Hapus data user
-                    localStorage.setItem('isLoggedIn', 'false');
-                    window.location.reload(); // Segarkan halaman untuk kembali ke status Login
+                    // Hapus data yang sesuai
+                    localStorage.removeItem('currentuser');
+                    localStorage.removeItem('isLoggedIn');
+                    localStorage.removeItem('savedPass');
+                    localStorage.removeItem('savedUser');
+                    
+                    alert("Anda telah logout.");
+                    window.location.reload(); // Segarkan halaman
                 }
             };
-        } else if (authButton) {
-            // Jika belum login
-            authButton.innerHTML = "LOGIN";
-            authButton.setAttribute('href', 'login/index.html');
         }
     };
 </script>
