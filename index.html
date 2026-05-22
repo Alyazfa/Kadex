@@ -755,7 +755,7 @@
         const authButton = document.getElementById('authButton');
         
         // SESUAIKAN: Ambil 'currentuser' sesuai data yang Anda temukan
-        const user = localStorage.getItem('user'); 
+        const user = localStorage.getItem('currentuser'); 
         const isLoggedIn = localStorage.getItem('isLoggedIn');
 
         if (isLoggedIn === 'true' && user && authButton) {
