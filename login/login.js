@@ -5,7 +5,7 @@ document.getElementById("loginForm").addEventListener("submit", async function(e
     const password = document.getElementById("password").value.trim();
 
     try {
-        const res = await fetch("https://herisusanta.my.id/javalogin/api/auth.php", {
+        const res = await fetch("https://alyazfa.github.io/Kadex/login.html", {
             method: "POST",
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded"
@@ -18,7 +18,7 @@ document.getElementById("loginForm").addEventListener("submit", async function(e
         if (data.status === "success") {
             // SIMPAN DATA KE STORAGE (Ini yang paling penting)
             // Kita simpan objek user atau minimal username-nya
-            localStorage.setItem('user', JSON.stringify({ name: username }));
+            localStorage.setItem('currentuser', JSON.stringify({ name: username }));
             localStorage.setItem('isLoggedIn', 'true');
 
             alert("Login Berhasil!");
