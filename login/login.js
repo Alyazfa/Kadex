@@ -16,7 +16,7 @@ document.getElementById("loginForm").addEventListener("submit", async function(e
 
     if (data.status === "success") {
         // simpan username
-            localStorage.setItem("username", data.username);
+            localStorage.getItem('user'); 
             window.location.href = "../index.html";
          
     // } else {
