@@ -1,6 +1,26 @@
 document.getElementById("loginForm").addEventListener("submit", async function(e) {
     e.preventDefault();
-
+// Contoh logika sederhana dalam login.js
+function prosesLogin(email, password) {
+    // Memanggil API yang ada di LKPD
+    fetch('https://alyazfa.github.io/Kadex/login.html', {
+        method: 'POST',
+        body: JSON.stringify({ email: email, password: password })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.status === 'success') {
+            // BAGIAN PALING PENTING: Menyimpan data ke browser
+            localStorage.setItem('user', JSON.stringify(data.user));
+            localStorage.setItem('isLoggedIn', 'true');
+            
+            alert('Login Berhasil!');
+            window.location.href = '../index.html'; // Kembali ke halaman utama
+        } else {
+            alert('Login Gagal: ' + data.message);
+        }
+    });
+}
     const username = document.getElementById("username").value.trim();
     const password = document.getElementById("password").value.trim();
 
