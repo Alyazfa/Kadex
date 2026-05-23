@@ -19,7 +19,11 @@ document.getElementById("loginForm").addEventListener("submit", async function(e
             // SIMPAN DATA (Gunakan kunci 'user' agar simpel)
             localStorage.setItem('user', username); 
             localStorage.setItem('isLoggedIn', 'true');
+<script src="js/jquery-1.12.4.min.js"></script> 
+<script src="js/bootstrap.min.js"></script>
+<script src="js/main.js"></script>
 
+<script src="js/login.js"></script>
             alert("Login Berhasil!");
             window.location.href = "../index.html"; 
         } else {
