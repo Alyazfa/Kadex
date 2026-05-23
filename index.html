@@ -458,40 +458,32 @@
    <!-- ... Kode HTML website Anda ... -->
 
     <!-- Panggil script bawaan template Anda terlebih dahulu -->
-    <script src="js/jquery.min.js"></script>
-    <script src="js/popper.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="assets/js/scripts.js"></script>
+   <script src="assets/js/jquery-1.12.4.min.js"></script>
+<script src="assets/bootstrap/js/bootstrap.min.js"></script>
+<script src="assets/js/modernizr-2.8.3.min.js"></script>
+<script src="assets/js/jquery.stellar.min.js"></script>
+<script src="assets/js/menu.js"></script>
+<script src="assets/js/jquery.sticky.js"></script>
+<script src="assets/js/scripts.js"></script>
 
-    <!-- Script Logika Logout Letakkan di Sini -->
-  <script>
-    window.onload = function() {
+<script>
+    window.addEventListener('load', function() {
         const authButton = document.getElementById('authButton');
-        
-        // SESUAIKAN: Ambil 'currentuser' sesuai data yang Anda temukan
-        const user = localStorage.getItem('currentuser'); 
+        const user = localStorage.getItem('user'); 
         const isLoggedIn = localStorage.getItem('isLoggedIn');
 
-        if (isLoggedIn === 'true' && user && authButton) {
-            // Ubah tampilan menjadi Logout
-            authButton.innerHTML = "LOGOUT";
+        if (isLoggedIn === 'true' && user) {
+            authButton.innerHTML = "LOGOUT (" + user + ")";
             authButton.setAttribute('href', '#'); 
-
             authButton.onclick = function(e) {
                 e.preventDefault();
-                if (confirm("Apakah Anda yakin ingin logout?")) {
-                    // Hapus data yang sesuai
-                    localStorage.removeItem('currentuser');
-                    localStorage.removeItem('isLoggedIn');
-                    localStorage.removeItem('savedPass');
-                    localStorage.removeItem('savedUser');
-                    
-                    alert("Anda telah logout.");
-                    window.location.reload(); // Segarkan halaman
+                if (confirm("Logout?")) {
+                    localStorage.clear();
+                    window.location.reload();
                 }
             };
         }
-    };
+    });
 </script>
 </body>
 </html>
